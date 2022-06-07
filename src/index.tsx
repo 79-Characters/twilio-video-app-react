@@ -16,10 +16,20 @@ import { ChatProvider } from './components/ChatProvider';
 import { VideoProvider } from './components/VideoProvider';
 import useConnectionOptions from './utils/useConnectionOptions/useConnectionOptions';
 import UnsupportedBrowserWarning from './components/UnsupportedBrowserWarning/UnsupportedBrowserWarning';
+import { AgentWalrus } from '@agent-walrus/agent-walrus';
 
 const VideoApp = () => {
   const { error, setError } = useAppState();
   const connectionOptions = useConnectionOptions();
+  const AW_APP_ID = window.location.hostname.split('.')[0];
+  const AW_GATEWAY_URL = process.env.REACT_APP_AW_GATEWAY_URL;
+
+  if (AW_APP_ID) {
+    console.log('Initializing AgentWalrus with APP_ID: ', AW_APP_ID, 'GATEWAY_URL', AW_GATEWAY_URL);
+    AgentWalrus.init(AW_APP_ID, { gatewayUrl: AW_GATEWAY_URL });
+  } else {
+    console.log('Agent Walrus not initialized.');
+  }
 
   return (
     <VideoProvider options={connectionOptions} onError={setError}>
