@@ -53,7 +53,7 @@ export default function PreJoinScreens() {
       window.history.replaceState(
         null,
         '',
-        window.encodeURI(`${appId}/room/${roomName}${window.location.search || ''}`)
+        window.encodeURI(`#/${appId}/room/${roomName}${window.location.search || ''}`)
       );
     }
     setStep(Steps.deviceSelectionStep);
