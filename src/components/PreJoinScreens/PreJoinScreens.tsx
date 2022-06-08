@@ -16,7 +16,7 @@ export enum Steps {
 export default function PreJoinScreens() {
   const { user } = useAppState();
   const { getAudioAndVideoTracks } = useVideoContext();
-  const { URLRoomName } = useParams();
+  const { URLRoomName, appId } = useParams();
   const [step, setStep] = useState(Steps.roomNameStep);
 
   const [name, setName] = useState<string>(user?.displayName || '');
@@ -50,7 +50,11 @@ export default function PreJoinScreens() {
 
     // If this app is deployed as a twilio function, don't change the URL because routing isn't supported.
     if (!window.location.origin.includes('twil.io')) {
-      window.history.replaceState(null, '', window.encodeURI(`/room/${roomName}${window.location.search || ''}`));
+      window.history.replaceState(
+        null,
+        '',
+        window.encodeURI(`${appId}/room/${roomName}${window.location.search || ''}`)
+      );
     }
     setStep(Steps.deviceSelectionStep);
   };

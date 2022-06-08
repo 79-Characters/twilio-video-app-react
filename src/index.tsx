@@ -6,7 +6,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import App from './App';
 import AppStateProvider, { useAppState } from './state';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useParams } from 'react-router-dom';
 import ErrorDialog from './components/ErrorDialog/ErrorDialog';
 import LoginPage from './components/LoginPage/LoginPage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
@@ -21,12 +21,12 @@ import { AgentWalrus } from '@agent-walrus/agent-walrus';
 const VideoApp = () => {
   const { error, setError } = useAppState();
   const connectionOptions = useConnectionOptions();
-  const AW_APP_ID = window.location.hostname.split('.')[0];
+  const { appId } = useParams();
   const AW_GATEWAY_URL = process.env.REACT_APP_AW_GATEWAY_URL;
 
-  if (AW_APP_ID) {
-    console.log('Initializing AgentWalrus with APP_ID: ', AW_APP_ID, 'GATEWAY_URL', AW_GATEWAY_URL);
-    AgentWalrus.init(AW_APP_ID, { gatewayUrl: AW_GATEWAY_URL });
+  if (appId) {
+    console.log('Initializing AgentWalrus with APP_ID: ', appId, 'GATEWAY_URL', AW_GATEWAY_URL);
+    AgentWalrus.init(appId, { gatewayUrl: AW_GATEWAY_URL });
   } else {
     console.log('Agent Walrus not initialized.');
   }
@@ -48,16 +48,15 @@ ReactDOM.render(
       <Router>
         <AppStateProvider>
           <Switch>
-            <PrivateRoute exact path="/">
+            <PrivateRoute exact path="/:appId">
               <VideoApp />
             </PrivateRoute>
-            <PrivateRoute path="/room/:URLRoomName">
+            <PrivateRoute path="/:appId/room/:URLRoomName">
               <VideoApp />
             </PrivateRoute>
-            <Route path="/login">
+            <Route path="/:appId/login">
               <LoginPage />
             </Route>
-            <Redirect to="/" />
           </Switch>
         </AppStateProvider>
       </Router>
