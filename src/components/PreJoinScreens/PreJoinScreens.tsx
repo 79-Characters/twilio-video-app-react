@@ -16,7 +16,7 @@ export enum Steps {
 export default function PreJoinScreens() {
   const { user } = useAppState();
   const { getAudioAndVideoTracks } = useVideoContext();
-  const { URLRoomName, appId } = useParams();
+  const { URLRoomName, token } = useParams();
   const [step, setStep] = useState(Steps.roomNameStep);
 
   const [name, setName] = useState<string>(user?.displayName || '');
@@ -53,7 +53,7 @@ export default function PreJoinScreens() {
       window.history.replaceState(
         null,
         '',
-        window.encodeURI(`#/${appId}/room/${roomName}${window.location.search || ''}`)
+        window.encodeURI(`#/${token}/room/${roomName}${window.location.search || ''}`)
       );
     }
     setStep(Steps.deviceSelectionStep);

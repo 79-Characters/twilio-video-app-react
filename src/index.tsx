@@ -21,12 +21,12 @@ import { AgentWalrus } from '@agent-walrus/agent-walrus';
 const VideoApp = () => {
   const { error, setError } = useAppState();
   const connectionOptions = useConnectionOptions();
-  const { appId } = useParams();
+  const { token } = useParams();
   const AW_GATEWAY_URL = process.env.REACT_APP_AW_GATEWAY_URL;
 
-  if (appId) {
-    console.log('Initializing AgentWalrus with APP_ID: ', appId, 'GATEWAY_URL', AW_GATEWAY_URL);
-    AgentWalrus.init(appId, { gatewayUrl: AW_GATEWAY_URL });
+  if (token) {
+    console.log('Initializing AgentWalrus with token: ', token, 'gatewayUrl', AW_GATEWAY_URL);
+    AgentWalrus.init(token, { gatewayUrl: AW_GATEWAY_URL });
   } else {
     console.log('Agent Walrus not initialized.');
   }
@@ -48,13 +48,13 @@ ReactDOM.render(
       <Router>
         <AppStateProvider>
           <Switch>
-            <PrivateRoute exact path="/:appId">
+            <PrivateRoute exact path="/:token">
               <VideoApp />
             </PrivateRoute>
-            <PrivateRoute path="/:appId/room/:URLRoomName">
+            <PrivateRoute path="/:token/room/:URLRoomName">
               <VideoApp />
             </PrivateRoute>
-            <Route path="/:appId/login">
+            <Route path="/:token/login">
               <LoginPage />
             </Route>
           </Switch>
