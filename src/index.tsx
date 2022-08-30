@@ -27,6 +27,7 @@ const VideoApp = () => {
   if (token) {
     console.log('Initializing AgentWalrus with token: ', token, 'gatewayUrl', AW_GATEWAY_URL);
     AgentWalrus.init(token, { gatewayUrl: AW_GATEWAY_URL });
+    (window as any).AW = AgentWalrus;
   } else {
     console.log('Agent Walrus not initialized.');
   }

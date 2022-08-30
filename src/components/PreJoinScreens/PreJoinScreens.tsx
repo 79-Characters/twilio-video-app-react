@@ -46,7 +46,7 @@ export default function PreJoinScreens() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    AgentWalrus.identify({ name: name });
+    AgentWalrus.identify({ id: name, name: name });
 
     // If this app is deployed as a twilio function, don't change the URL because routing isn't supported.
     if (!window.location.origin.includes('twil.io')) {
