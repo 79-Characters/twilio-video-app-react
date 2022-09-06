@@ -56,8 +56,8 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
       </Typography>
       <Typography variant="body1">
         {hasUsername
-          ? "Enter the name of a room you'd like to join."
-          : "Enter your name and the name of a room you'd like to join"}
+          ? "Enter the name of a room you'd like to join. The call is monitored by Agent Walrus and you'll be able to view"
+          : 'This browser session is being monitored and the results will be available in Agent Walrus.'}
       </Typography>
       <form onSubmit={handleSubmit}>
         <div className={classes.inputContainer}>

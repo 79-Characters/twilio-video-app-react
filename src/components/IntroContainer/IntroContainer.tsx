@@ -1,11 +1,9 @@
 import React from 'react';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
-import Swoosh from './swoosh';
-import VideoLogo from './VideoLogo';
-import TwilioLogo from './TwilioLogo';
 import { useAppState } from '../../state';
 import UserMenu from './UserMenu/UserMenu';
 import { useLocation } from 'react-router-dom';
+import { AgentLogo } from './AgentLogo';
 
 const useStyles = makeStyles((theme: Theme) => ({
   background: {
@@ -41,8 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: Swoosh,
-    backgroundSize: 'cover',
+    background: 'rgb(63, 131, 248)',
     width: '296px',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -64,11 +61,13 @@ const useStyles = makeStyles((theme: Theme) => ({
       },
     },
   },
-  twilioLogo: {
-    position: 'absolute',
+  logo: {
+    position: 'relative',
     top: 0,
-    left: 0,
+    left: 30,
     margin: '20px',
+    height: '100px',
+    width: '100px',
   },
   content: {
     background: 'white',
@@ -100,15 +99,16 @@ const IntroContainer = (props: IntroContainerProps) => {
 
   return (
     <div className={classes.background}>
-      <TwilioLogo className={classes.twilioLogo} />
       {user && location.pathname !== '/login' && <UserMenu />}
       <div className={classes.container}>
         <div className={classes.innerContainer}>
           <div className={classes.swooshContainer}>
             <div className={classes.logoContainer}>
-              <VideoLogo />
+              <div className={classes.logo}>
+                <AgentLogo />
+              </div>
               <Typography variant="h6" className={classes.title}>
-                Twilio Programmable Video monitored by Agent Walrus
+                Demo app powered by Twilio Video
               </Typography>
             </div>
           </div>

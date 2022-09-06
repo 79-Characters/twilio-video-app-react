@@ -2,6 +2,8 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
+import Rating from '@material-ui/lab/Rating';
+
 import EndCallButton from '../Buttons/EndCallButton/EndCallButton';
 import { isMobile } from '../../utils';
 import Menu from './Menu/Menu';
@@ -12,6 +14,8 @@ import ToggleAudioButton from '../Buttons/ToggleAudioButton/ToggleAudioButton';
 import ToggleChatButton from '../Buttons/ToggleChatButton/ToggleChatButton';
 import ToggleVideoButton from '../Buttons/ToggleVideoButton/ToggleVideoButton';
 import ToggleScreenShareButton from '../Buttons/ToogleScreenShareButton/ToggleScreenShareButton';
+import { AgentWalrus } from '@agent-walrus/agent-walrus';
+import ViewInAWButton from '../Buttons/ViewInAWButton/ViewInAWButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,6 +63,13 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'none',
       },
     },
+    rating: {
+      marginTop: '5px',
+      marginLeft: '15px',
+    },
+    viewInAw: {
+      textDecoration: 'none',
+    },
   })
 );
 
@@ -68,6 +79,12 @@ export default function MenuBar() {
   const roomState = useRoomState();
   const isReconnecting = roomState === 'reconnecting';
   const { room } = useVideoContext();
+
+  function onRatingChange(event: unknown, value: number | null) {
+    if (value) {
+      AgentWalrus.submitUserFeedback(value);
+    }
+  }
 
   return (
     <>
@@ -92,6 +109,8 @@ export default function MenuBar() {
               {process.env.REACT_APP_DISABLE_TWILIO_CONVERSATIONS !== 'true' && <ToggleChatButton />}
               <Hidden smDown>
                 <Menu />
+                <ViewInAWButton className={classes.viewInAw} />
+                <Rating className={classes.rating} onChange={onRatingChange} />
               </Hidden>
             </Grid>
           </Grid>

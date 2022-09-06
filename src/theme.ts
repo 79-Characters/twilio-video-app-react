@@ -42,7 +42,8 @@ export default createTheme({
       root: {
         borderRadius: '4px',
         textTransform: 'none',
-        color: 'rgb(40, 42, 43)',
+        color: 'rgb(63, 131, 248)',
+        // color: 'rgb(40, 42, 43)',
         fontSize: '0.9rem',
         transition: defaultTheme.transitions.create(['background-color', 'box-shadow', 'border', 'color'], {
           duration: defaultTheme.transitions.duration.short,
@@ -58,7 +59,7 @@ export default createTheme({
         },
       },
       outlinedPrimary: {
-        border: '2px solid #027AC5',
+        border: '2px solid rgb(63, 131, 248)',
         '&:hover': {
           border: '2px solid rgb(1, 85, 137)',
         },
@@ -112,7 +113,7 @@ export default createTheme({
   },
   palette: {
     primary: {
-      main: '#027AC5',
+      main: 'rgb(63, 131, 248)',
     },
   },
   brand: '#E22525',
