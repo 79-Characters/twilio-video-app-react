@@ -24,7 +24,7 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
       setIsConnecting(true);
       return Video.connect(token, { ...optionsRef.current, tracks: localTracks }).then(
         newRoom => {
-          AgentWalrus.monitorVendor('twilio', newRoom);
+          AgentWalrus.monitorPlatform('twilio', newRoom);
 
           setRoom(newRoom);
           VideoRoomMonitor.registerVideoRoom(newRoom);
